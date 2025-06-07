@@ -2,7 +2,7 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "Launch TypeScript Application",
+      "name": "Launch TypeScript Application (ts-node)",
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/src/index.ts",
@@ -16,18 +16,38 @@
       "skipFiles": ["<node_internals>/**"]
     },
     {
-      "name": "Launch Compiled Application",
+      "name": "Launch esbuild Compiled Application",
       "type": "node",
       "request": "launch",
       "program": "${workspaceFolder}/dist/index.js",
       "outFiles": ["${workspaceFolder}/dist/**/*.js"],
-      "preLaunchTask": "Build TypeScript",
+      "preLaunchTask": "Build with esbuild",
       "env": {
         "NODE_ENV": "production"
       },
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen",
-      "skipFiles": ["<node_internals>/**"]
+      "skipFiles": ["<node_internals>/**"],
+      "sourceMapPathOverrides": {
+        "*": "${workspaceFolder}/*"
+      }
+    },
+    {
+      "name": "Debug esbuild Development Build",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/dist/index.js",
+      "outFiles": ["${workspaceFolder}/dist/**/*.js"],
+      "preLaunchTask": "Build Development",
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "skipFiles": ["<node_internals>/**"],
+      "sourceMapPathOverrides": {
+        "*": "${workspaceFolder}/*"
+      }
     }
   ]
 }
