@@ -2,31 +2,49 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "Build TypeScript",
+      "label": "Build with esbuild",
       "type": "shell",
       "command": "npm",
       "args": ["run", "build"],
       "group": "build",
-      "problemMatcher": ["$tsc"],
+      "problemMatcher": [],
       "isBackground": false
     },
     {
-      "label": "Run Development Server",
+      "label": "Build Development",
       "type": "shell",
       "command": "npm",
-      "args": ["run", "dev:watch"],
+      "args": ["run", "build:dev"],
+      "group": "build",
+      "problemMatcher": [],
+      "isBackground": false
+    },
+    {
+      "label": "Build Watch Mode",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "build:watch"],
       "group": "build",
       "isBackground": true,
       "problemMatcher": []
     },
     {
+      "label": "Type Check",
+      "type": "shell",
+      "command": "npm",
+      "args": ["run", "type-check"],
+      "group": "build",
+      "problemMatcher": ["$tsc"],
+      "isBackground": false
+    },
+    {
       "label": "Run Application",
       "type": "shell",
       "command": "npm",
-      "args": ["run", "dev"],
+      "args": ["run", "start"],
       "group": "build",
       "isBackground": false,
-      "dependsOn": "Build TypeScript"
+      "dependsOn": "Build with esbuild"
     },
     {
       "label": "Clean Build",

@@ -4,11 +4,14 @@
   "description": "A TypeScript Node.js application",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
+    "build": "node esbuild.config.js prod",
+    "build:dev": "node esbuild.config.js dev",
+    "build:watch": "node esbuild.config.js watch",
     "start": "node dist/index.js",
-    "dev": "ts-node src/index.ts",
-    "dev:watch": "nodemon --exec ts-node src/index.ts",
+    "dev": "npm run build:dev && npm run start",
+    "dev:watch": "npm run build:watch",
     "clean": "rm -rf dist",
+    "type-check": "tsc --noEmit",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "biome lint src/",
     "lint:fix": "biome lint src/ --write",
@@ -18,7 +21,7 @@
     "check:fix": "biome check src/ --write",
     "ci": "biome ci src/",
     "precommit": "biome check src/ --write",
-    "validate": "npm run build && npm run check"
+    "validate": "npm run build && npm run type-check && npm run check"
   },
   "keywords": [
     "typescript",
@@ -33,6 +36,7 @@
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
     "@types/node": "^22.15.26",
+    "esbuild": "^0.25.5",
     "nodemon": "^3.1.10",
     "ts-node": "^10.9.2",
     "typescript": "^5.8.3"

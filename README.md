@@ -1,12 +1,13 @@
 # TypeScript Node.js Application
 
-A modern TypeScript Node.js application with a clean project structure and development tools.
+A modern TypeScript Node.js application with esbuild for fast compilation and development.
 
 ## Features
 
 - TypeScript with strict type checking
+- Fast compilation with esbuild
+- Development server with watch mode
 - Modern ES2020+ features
-- Development server with hot reload
 - Clean project structure
 - Comprehensive TypeScript configuration
 
@@ -48,11 +49,16 @@ A modern TypeScript Node.js application with a clean project structure and devel
 
 ## Available Scripts
 
-- `npm run dev` - Run the application in development mode
-- `npm run dev:watch` - Run with auto-reload on file changes
-- `npm run build` - Build the TypeScript code to JavaScript
+### Build & Development
+- `npm run build` - Build for production using esbuild
+- `npm run build:dev` - Build for development using esbuild
+- `npm run build:watch` - Build with watch mode for development
+- `npm run dev` - Build and run the application in development mode
 - `npm start` - Run the built application
 - `npm run clean` - Remove the build directory
+
+### Type Checking & Code Quality
+- `npm run type-check` - Run TypeScript type checking (without compilation)
 - `npm run lint` - Check code with Biome linter
 - `npm run lint:fix` - Fix linting issues automatically
 - `npm run format` - Check code formatting with Biome
@@ -61,11 +67,29 @@ A modern TypeScript Node.js application with a clean project structure and devel
 - `npm run check:fix` - Fix both linting and formatting issues
 - `npm run ci` - Run CI checks (used in automated builds)
 - `npm run precommit` - Run pre-commit checks and fixes
-- `npm run validate` - Run build and checks together
-- `npm run dev:watch` - Run with auto-reload on file changes
-- `npm run build` - Compile TypeScript to JavaScript
-- `npm start` - Run the compiled application
-- `npm run clean` - Remove the dist directory
+- `npm run validate` - Run build, type checking, and code quality checks
+
+## Development with esbuild
+
+This project uses [esbuild](https://esbuild.github.io/) for fast TypeScript compilation instead of the TypeScript compiler (tsc). This provides several benefits:
+
+### Benefits of esbuild
+- **Speed**: 10-100x faster than tsc for compilation
+- **Watch mode**: Instant rebuilds on file changes
+- **ES modules support**: Native ESM and CommonJS support
+- **Tree shaking**: Automatic dead code elimination
+- **Source maps**: Full source map support for debugging
+
+### Build Modes
+- **Development**: Fast builds with inline source maps (`npm run build:dev`)
+- **Production**: Optimized builds with minification (`npm run build`)
+- **Watch**: Continuous rebuilds during development (`npm run build:watch`)
+
+### Type Checking
+Since esbuild doesn't perform type checking, we use TypeScript separately:
+- Run `npm run type-check` for type validation
+- The `validate` script runs both building and type checking
+- VS Code provides real-time type checking in the editor
 
 ## Project Structure
 
@@ -84,8 +108,10 @@ ts-base/
 ├── .gitignore
 ├── .biomeignore      # Files ignored by Biome
 ├── biome.json        # Biome configuration
+├── esbuild.config.js # esbuild build configuration
+├── .esbuildrc.js     # esbuild configuration presets
 ├── package.json
-├── tsconfig.json
+├── tsconfig.json     # TypeScript configuration (type checking only)
 └── README.md
 ```
 
